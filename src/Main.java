@@ -1,17 +1,99 @@
 import java.io.*;
+import java.text.ChoiceFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException, CustomNumberException, ClassNotFoundException {
         Main main = new Main();
         //TODO
-        main.task5();
+        main.task12();
         // main.task2("C:\\Users\\User\\IdeaProjects\\ExamJava");
+    }
+
+    private void task12() {
+        LocalDate birthDate = LocalDate.of(2000, 3, 30);
+        LocalDate now = LocalDate.now();
+        int age = now.getYear() - birthDate.getYear();
+        if (now.isBefore(LocalDate.of(now.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth())))
+            age--;
+        System.out.println(age);
+    }
+
+    private void task11() {
+        LocalDate localDate = LocalDate.now();
+        System.out.println(ChronoUnit.DAYS.between(localDate, LocalDate.of(localDate.getYear(), 12, 31)));
+    }
+
+    private void task10() {
+        Scanner sc = new Scanner(System.in);
+        String dayOfweek = sc.next();
+        LocalDate localDate = LocalDate.now();
+        while (!dayOfweek.equalsIgnoreCase(localDate.getDayOfWeek().name())) {
+            localDate = localDate.plusDays(1);
+        }
+        System.out.println(localDate);
+    }
+
+    private void task9() {
+        List<Integer> list = List.of(11, 15, 77, 15, 111);
+        for (int i = 0; i < list.size() / 2; i++) {
+            if (list.get(i) != list.get(list.size() - 1 - i)) {
+                System.out.println("Palindrome deyil");
+                return;
+            }
+        }
+        System.out.println("Palindromedur");
+    }
+
+    private void task8() {
+        List<Person> personList = new ArrayList<>();
+        personList.add(new Person(17, "Esma"));
+        personList.add(new Person(17, "Shamil"));
+        personList.add(new Person(27, "Gulnar"));
+        Map<Integer, List<Person>> map = new HashMap<>();
+        for (Person person : personList) {
+//            List<Person> personList1 = new ArrayList<>();
+//            personList1.add(person);
+            map.computeIfAbsent(person.getAge(), k -> new ArrayList<>()).add(person);
+//            map.put(person.getAge(),personList1);
+        }
+        System.out.println(map);
+    }
+
+    private void task7() {
+        List<Integer> list2 = List.of(11, 15, 77, 6, 8);
+        List<Integer> list1 = new ArrayList<>(list2);
+        list1.add(11);
+        list1.add(5);
+        list1.add(7);
+        list1.add(6);
+        list1.add(8);
+        System.out.println(list1);
+        for (int i = 0; i < list1.size() - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < list1.size(); j++) {
+                if (list1.get(minIndex) > list1.get(j))
+                    minIndex = j;
+            }
+            int minElement = list1.get(minIndex);
+            list1.set(minIndex, list1.get(i));
+            list1.set(i, minElement);
+        }
+        System.out.println("Sorted list: " + list1);
+    }
+
+    private void task6() {
+        List<Integer> list1 = List.of(11, 5, 7, 6, 8);
+        List<Integer> list2 = List.of(11, 15, 77, 6, 8);
+        List<Integer> listCommon = new ArrayList<>();
+        for (Integer element : list1) {
+            if (list2.contains(element))
+                listCommon.add(element);
+        }
+        System.out.println(listCommon);
     }
 
     private void task5() throws IOException, ClassNotFoundException {

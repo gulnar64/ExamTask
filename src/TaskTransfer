@@ -1,0 +1,31 @@
+User
+    id
+    name
+    -> Employer
+        profession
+        salary
+    -> Client
+    addUser()
+
+Account
+    id
+    account
+    user
+    balance
+    AccountStatus -> enum
+
+    addAccount()
+        checkUserExists
+    getAccounts() -> group by user. Map<User, List<Account>>
+
+Transfer
+    transfer()
+        checkAccountStatus() 2 times sender and receiver
+        calculateCommission()
+            isSameEmployer() 0
+            isDifferentEmployer() 0.5
+            isSameUser() 1
+            isDifferentUser() 1.5
+        checkBalance(commission+amount) sender
+
+
